@@ -14,8 +14,6 @@ from bson import ObjectId
 
 from errors.errorhandler import Errors
 
-import json
-
 
 
 encode = JSONEncoder()
@@ -58,8 +56,6 @@ class WriteSchedule(Errors):
         
         document = list(mkCollection.therapists.find({}, {'_id': 0}))
 
-        # docs = [i for i in document]
-
         return document
 
         
@@ -70,9 +66,12 @@ class WriteSchedule(Errors):
 
         documents = self.getDBDocs()
 
+        #get all days data:
         docs = documents[0][schedule.name]
 
+        #get a list of all keys from the days data:
         filteredDates = [list(i.keys())[0] for i in docs]
+
 
         if schedule.days in filteredDates:
             return self.dayExists()
