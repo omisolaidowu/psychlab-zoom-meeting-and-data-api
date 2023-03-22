@@ -1,4 +1,5 @@
 .env
 datas.py
 test.py
+todos.txt
 /__pycache__

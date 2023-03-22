@@ -16,6 +16,8 @@ load_dotenv()
 
 sys.path.append(sys.path[0] + "/..")
 
+from errors.errorhandler import Errors
+
 
 from models.models import MeetingDetail
 
@@ -23,7 +25,7 @@ from models.models import MeetingDetail
 from services.details import Details
 
 
-class CreateMeetingInfo(Details):
+class CreateMeetingInfo(Details, Errors):
     def __init__(self) -> None:
         self.API_key = os.getenv("ZOOM_API-KEY")
         self.API_secret = os.getenv("ZOOM_API_SECRET")
@@ -51,28 +53,25 @@ class CreateMeetingInfo(Details):
                     }
             r = requests.post(
                 f'https://api.zoom.us/v2/users/me/meetings',
-                headers=headers, data=json.dumps(self.meetDetails(meetings.start_time)))
+                headers=headers, data=json.dumps(self.meetDetails(
+                "{}T10: {}".format(meetings.start_date, meetings.start_time)
+                )))
             meetingdata = json.loads(r.text)
-            # print(meetingdata)
+           
             self.meetingURL = meetingdata["join_url"]
             self.meetingPassword = meetingdata["password"]
             self.meetingTime = meetingdata["start_time"]
             self.topic = meetingdata["topic"]
-        
-            return JSONResponse(
-                status_code=200, 
-                content={
-                        "MeetingURL": self.meetingURL, 
-                        "password": self.meetingPassword,
-                        "meetingTime": self.meetingTime,
-                        "Purpose": self.topic,
-                        "message": "Success"
-                            }
-                            )
+
+            content={
+                    "MeetingURL": self.meetingURL, 
+                    "password": self.meetingPassword,
+                    "meetingTime": self.meetingTime,
+                    "Purpose": self.topic,
+                    "message": "Success"
+                    }
+
+            return self.statusOkay(content)
+    
         except:
-            return JSONResponse(
-              status_code=500, 
-              content={
-              "message":"An error has occured, please try again..."
-              }
-              )
+            return self.serverError()

@@ -13,7 +13,7 @@ class Errors:
     def serverError(self):
         return JSONResponse(
                 status_code=500, 
-                content={"message": "An error occured" })
+                content={"message": "An error occured, please try again" })
     def statusOkay(self, response):
         return JSONResponse(
                 status_code=200, 
