@@ -6,6 +6,10 @@ class Errors:
         return JSONResponse(
                 status_code=400, 
                 content={"message": "Therapist already exists" })
+    def noDataError(self):
+        return JSONResponse(
+                status_code=403, 
+                content={"message": "Please add data before updating" })
     def dayExists(self):
         return JSONResponse(
                 status_code=400, 

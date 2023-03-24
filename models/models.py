@@ -14,7 +14,8 @@ class MeetingDetail():
 @dataclass
 class MeetingSchedules():
     user_id = ObjectId()
+    first_name:str = Form(...)
+    last_name:str = Form(...)
     email:str = Form(...)
-    name:str = Form(...)
     days:str = Form(...) 
     scheduleTimes:list = Form(...)

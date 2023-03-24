@@ -28,10 +28,11 @@ class WriteSchedule(Errors):
 
     def submitSchedule(self, schedule: MeetingSchedules):
         self.data = {
+            "first_name": schedule.first_name,
+            "last_name": schedule.last_name,
             "email":schedule.email,
             "user_id": ObjectId(),
-            "name": schedule.name,
-            schedule.name:[{schedule.days:schedule.scheduleTimes}]
+            schedule.first_name:[{schedule.days:schedule.scheduleTimes}]
         }
         try:
 
@@ -52,40 +53,60 @@ class WriteSchedule(Errors):
         except:
             return self.serverError()
         
-    def getDBDocs(self):
+    def getTimes(self):
         
         document = list(mkCollection.therapists.find({}, {'_id': 0}))
 
         return document
-
+    
+    def getDBDocs(self):
         
+        document = list(mkCollection.therapists.find({}, {'_id': 0}))
+
+        return self.statusOkay(document)
+
+
     
     def updateSchedules(self, schedule: MeetingSchedules):
-        new_data = {schedule.name: {schedule.days:schedule.scheduleTimes}}
+        new_data = {schedule.first_name: {schedule.days:schedule.scheduleTimes}}
 
+        documents = self.getTimes()
 
-        documents = self.getDBDocs()
+        first_names = [i["first_name"] for i in documents]
+        last_names = [i["last_name"] for i in documents]
 
-        #get all days data:
-        docs = documents[0][schedule.name]
+        dates = [list(i.keys())[4] for i in documents]
 
-        #get a list of all keys from the days data:
-        filteredDates = [list(i.keys())[0] for i in docs]
+        staffDateTrackIndex = dates.index(schedule.first_name)
 
+        staffDates = [i for i in documents[staffDateTrackIndex][schedule.first_name]]
+
+        filteredDates = [list(i.keys())[0] for i in staffDates]
 
         if schedule.days in filteredDates:
             return self.dayExists()
-            
+        if (
+            schedule.first_name not in first_names
+            or
+            schedule.last_name not in last_names
+            ):
+            return self.noDataError()
+        elif len(documents)<1:
+            return self.noDataError()
+
         else:
-            mkCollection.therapists.update_many(
-                            {'name': schedule.name}, 
-                            {'$push': new_data}, 
-                            upsert = True
-                            )
-            responsedata = mkCollection.therapists.find({}, {'_id': 0})
+            try:
+                mkCollection.therapists.update_many(
+                                {'last_name': schedule.last_name}, 
+                                {'$push': new_data}, 
+                                upsert = True
+                                )
+                responsedata = mkCollection.therapists.find({}, {'_id': 0})
+                
             
-        
-            return self.statusOkay(list(responsedata))
+                return self.statusOkay(list(responsedata))
+            except KeyError as e:
+                return self.serverError
         
 
 

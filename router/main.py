@@ -42,6 +42,7 @@ router = APIRouter()
 router.add_api_route('/api/get-data', 
 endpoint = writemeeting.getDBDocs, methods=["GET"])
 
+
 router.add_api_route('/api/create-zoomlink', 
 endpoint = meetingInfo.createMeeting, methods=["POST"])
 
