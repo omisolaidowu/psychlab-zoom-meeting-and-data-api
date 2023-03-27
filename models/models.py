@@ -19,3 +19,11 @@ class MeetingSchedules():
     email:str = Form(...)
     days:str = Form(...) 
     scheduleTimes:list = Form(...)
+    time: str = Form(None)
+
+@dataclass
+class ReplacementData():
+    time: str = Form(...)
+    
+
+

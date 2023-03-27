@@ -20,7 +20,7 @@ meetingInfo = CreateMeetingInfo()
 writemeeting = WriteSchedule()
 
 origins = [
-    "http://localhost:8080",
+    "http://localhost:5000",
 ]
 
 
@@ -33,7 +33,6 @@ app.add_middleware(
     allow_credentials= True,
     allow_methods = ["*"],
     allow_headers = ["*"],
-   
 )
 
 
@@ -48,6 +47,10 @@ endpoint = meetingInfo.createMeeting, methods=["POST"])
 
 router.add_api_route('/api/create-schedule', 
 endpoint = writemeeting.submitSchedule, methods=["POST"])
+
+
+router.add_api_route('/api/remove-selected-time', 
+endpoint = writemeeting.reduceTime, methods=["POST"])
 
 
 router.add_api_route('/api/update-schedule', 
