@@ -4,7 +4,7 @@ import sys
 sys.path.append(sys.path[0] + "/..")
 
 
-from models.models import MeetingSchedules, ReplacementData
+from models.models import MeetingSchedules
 
 from services.collectionDB import MakeCollection
 
@@ -15,6 +15,8 @@ from bson import ObjectId
 
 from errors.errorhandler import Errors
 
+from queries.getQueries import Queries
+
 
 
 encode = JSONEncoder()
@@ -22,7 +24,7 @@ encode = JSONEncoder()
 mkCollection = MakeCollection()
 
 
-class WriteSchedule(Errors):
+class WriteSchedule(Queries, Errors):
 
     def __init__(self) -> None:
         self.data = None
@@ -55,25 +57,6 @@ class WriteSchedule(Errors):
         except:
             return self.serverError()
         
-    def getTimes(self):
-        
-        document = list(mkCollection.therapists.find({}, {'_id': 0}))
-
-        return document
-    
-    def getDBDocs(self):
-        
-        document = list(mkCollection.therapists.find({}, {'_id': 0}))
-
-        return self.statusOkay(document)
-    
-    def queryTargetDay(self, emailAddress, name, days):
-        query = {"email": emailAddress}
-        data = list(mkCollection.therapists.find(query, 
-        {'{}.{}'.format(name, days):1, "_id":0}))
-
-        return data
-
 
     
     def updateSchedules(self, schedule: MeetingSchedules):
@@ -158,7 +141,7 @@ class WriteSchedule(Errors):
 
                         mkCollection.therapists.update_many({},{'$pull':{'{}'.format(schedule.first_name):None}})
                         
-                    return self.statusOkay(self.getTimes())
+                    return self.submittedSuccess(self.getTimes())
 
             else:
                 print("Error")

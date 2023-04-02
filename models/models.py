@@ -22,8 +22,11 @@ class MeetingSchedules():
     time: str = Form(None)
 
 @dataclass
-class ReplacementData():
-    time: str = Form(...)
-    
+class User():
+    user_id = ObjectId()
+    first_name:str = Form(...)
+    last_name:str = Form(...)
+    email:str = Form(...)
+
 
 

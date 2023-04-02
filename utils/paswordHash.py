@@ -1,0 +1,1 @@
+# Todo: Class with methods for encrypting and decrypting user password

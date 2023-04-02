@@ -27,7 +27,8 @@ class Errors:
                 content={
             "status": 0,
             "message":
-        "Oops! Sorry, but someone else might've booked this time while you left off || please select another time" })
+        "Error! Someone else might've booked this time while you left off.\
+              Please select another time or other therapists" })
     
     def serverError(self):
         return JSONResponse(
@@ -41,6 +42,17 @@ class Errors:
                 content={
                         "data": response,
                         "message": "Success",
+                        "status":1
+                            })
+
+    def submittedSuccess(self, response):
+        return JSONResponse(
+                status_code=200, 
+                content={
+                        "data": response,
+                        "message": 
+                        "Meeting scheduled successfully.\
+                            Please check your email for meeting link.",
                         "status":1
                             })
 

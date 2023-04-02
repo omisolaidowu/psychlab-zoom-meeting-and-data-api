@@ -22,6 +22,7 @@ class MakeCollection:
             ))
         db = client.therapistDates
         self.therapists = db.therapists
+        # self.doc = next(self.therapists)
     
     def insertMeeting(self, data):
         
