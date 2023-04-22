@@ -4,10 +4,6 @@ from dataclasses import dataclass
 
 from bson import ObjectId
 
-from pydantic import BaseModel
-
-from typing import Optional
-
 @dataclass
 class MeetingDetail():
     start_date: str = Form(...)
@@ -32,10 +28,6 @@ class User():
     Password:str = Form(...)
     isAdmin: bool = Form(False)
     isSuperAdmin: bool = Form(False)
-
-@dataclass
-class TokenData():
-    email: str = Form(...)
     
 @dataclass
 class Token():

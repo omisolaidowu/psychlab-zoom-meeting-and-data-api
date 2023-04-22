@@ -8,10 +8,7 @@ load_dotenv()
 from models.models import LoginUserSchema
 from queries.getQueries import Queries
 
-
-
 userCollection = MakeCollection()
-
 
 class Login(Queries, userCheck, Errors):
     def login_for_access_token(self, login: LoginUserSchema):

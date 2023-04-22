@@ -103,8 +103,6 @@ class WriteSchedule(Queries, Errors):
                                 )
                 responsedata = mkCollection.therapists.find({}, {'_id': 0})
 
-
-
                 return self.statusOkay(list(responsedata))
             except KeyError as e:
                 return self.serverError
@@ -121,9 +119,6 @@ class WriteSchedule(Queries, Errors):
 
             dateIndex = filter.index([schedule.days])
 
-            print(dates)
-            
-
             if (len(filter)>=1):
 
                 filteredTimes = dates[dateIndex][schedule.days]
@@ -133,7 +128,6 @@ class WriteSchedule(Queries, Errors):
                     mkCollection.therapists.update_one(query, 
                     {"$pull": {'{}.{}.{}'.format(schedule.first_name, dateIndex, schedule.days): schedule.time}})
                     
-
                     if (len(filteredTimes)==1):
 
                         mkCollection.therapists.update_one(query, 

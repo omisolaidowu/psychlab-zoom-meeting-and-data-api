@@ -1,5 +1,3 @@
-
-
 class Details:
     def meetDetails(self, timedetail):
         meetingdetails = {

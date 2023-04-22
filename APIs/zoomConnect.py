@@ -5,23 +5,12 @@ from time import time
 import sys
 import os
 
-from datetime import datetime
-
-from fastapi.responses import JSONResponse 
-
 from dotenv import load_dotenv
-
-
 load_dotenv()
-
 sys.path.append(sys.path[0] + "/..")
 
 from errors.errorhandler import Errors
-
-
 from models.models import MeetingDetail
-
-
 from services.details import Details
 
 
@@ -70,8 +59,6 @@ class CreateMeetingInfo(Details, Errors):
                     "Purpose": self.topic,
                     "message": "Success"
                     }
-
-            return self.statusOkay(content)
-    
+            return self.statusOkay(content)   
         except:
             return self.serverError()

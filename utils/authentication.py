@@ -5,28 +5,19 @@ from datetime import datetime, timedelta
 import os
 from jose import jwt
 from errors.errorhandler import Errors
-
 from dotenv import load_dotenv
 from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer
-
 from typing import Optional
 
-
 load_dotenv()
-
 
 userCollection = MakeCollection()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-class UserInDB(User):
-    hashed_password: str
-
-
 class userCheck(PasswordActions, Errors):
     def get_user(self, collection, email:str):
-        # try:
         query = {"Email": email}
         usercollect = collection.find_one(query, {'Email':1, "Password":1, "_id":0})
         try:
@@ -38,7 +29,6 @@ class userCheck(PasswordActions, Errors):
                 
         except:
             return self.userNotVerified()
-
     
     def authenticate_user(self, collection, email: str, password: str):
         user = self.get_user(collection=collection, email=email)

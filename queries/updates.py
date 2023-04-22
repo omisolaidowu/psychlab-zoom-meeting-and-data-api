@@ -3,5 +3,4 @@ class queryupdates:
         collection.update_one(
                          query, 
                         {'$push': AccessToken}, 
-                        
                                 )

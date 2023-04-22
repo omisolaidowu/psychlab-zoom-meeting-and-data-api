@@ -20,7 +20,6 @@ class Register(PasswordActions, Errors):
         }
 
         try:
-
             self.InsertedData = JSONEncoder().encode(self.data)
 
             Mydata = eval(self.InsertedData)
@@ -34,8 +33,7 @@ class Register(PasswordActions, Errors):
             else:
                 Mydata["Password"] = self.get_password_hash(Mydata["Password"])
                 userCollection.insertUser(Mydata)
-                return self.statusOkay(list(Mydata))
-        
+                return self.statusOkay(list(Mydata))     
         except:
             return self.serverError()
 

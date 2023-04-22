@@ -6,17 +6,11 @@ from APIs.meetingSchedule import WriteSchedule
 from APIs.register import Register
 from APIs.login import Login
 from models.models import Token
-
 from fastapi import FastAPI, APIRouter
-
 from fastapi.middleware.cors import CORSMiddleware
-
 from dotenv import load_dotenv
 
-from typing import List
-
 load_dotenv()
-import os
 
 import uvicorn
 
