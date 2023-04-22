@@ -4,7 +4,9 @@ from dataclasses import dataclass
 
 from bson import ObjectId
 
+from pydantic import BaseModel
 
+from typing import Optional
 
 @dataclass
 class MeetingDetail():
@@ -27,6 +29,24 @@ class User():
     first_name:str = Form(...)
     last_name:str = Form(...)
     email:str = Form(...)
+    Password:str = Form(...)
+    isAdmin: bool = Form(False)
+    isSuperAdmin: bool = Form(False)
+
+@dataclass
+class TokenData():
+    username: str = Form(...)
+    
+@dataclass
+class Token():
+    access_token: str = Form(...)
+    token_type: str = Form(...)
+
+@dataclass
+class LoginUserSchema():
+    email: str = Form(...)
+    password: str = Form(...)
+
 
 
 

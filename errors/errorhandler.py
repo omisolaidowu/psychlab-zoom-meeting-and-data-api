@@ -1,4 +1,5 @@
 from fastapi.responses import JSONResponse 
+from fastapi import HTTPException, status
 
 
 class Errors:
@@ -8,6 +9,12 @@ class Errors:
                 content={
             "status": 0,
             "message": "Therapist already exists" })
+    def userExists(self):
+        return JSONResponse(
+                status_code=400, 
+                content={
+            "status": 0,
+            "message": "user with email or username already exists"})
     def noDataError(self):
         return JSONResponse(
                 status_code=403, 
@@ -55,7 +62,30 @@ class Errors:
                             Please check your email for meeting link.",
                         "status":1
                             })
-
+    def passwordShortError(self):
+        return JSONResponse(
+            status_code = 400,
+            content={
+            "status": 0,
+            "message": "Password must be longer than eight characters"
+            }
+        )
+    def JWTError(self):
+        return JSONResponse(
+            status_code = 400,
+            content={
+            "status": 0,
+            "message": "Could not validate credentials"
+            }
+        )
+    def userNotVerified(self):
+        return JSONResponse(
+            status_code = 400,
+            content={
+            "status": 0,
+            "message": "Invalid email or password"
+            }
+        )
 
 
 
