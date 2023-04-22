@@ -35,7 +35,7 @@ class User():
 
 @dataclass
 class TokenData():
-    username: str = Form(...)
+    email: str = Form(...)
     
 @dataclass
 class Token():

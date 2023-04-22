@@ -29,6 +29,7 @@ class MakeCollection:
         return self.therapists.insert_one(data)
     def insertUser(self, data):
         return self.usercol.insert_one(data)
+    
             
         
         

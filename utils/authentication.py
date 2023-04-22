@@ -65,5 +65,3 @@ class userCheck(PasswordActions, Errors):
             to_encode, os.getenv("JWT_SECRET_KEY"), algorithm=os.getenv("ALGORITHM")
             )
             return encoded_jwt
-    
-        

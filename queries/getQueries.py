@@ -28,3 +28,12 @@ class Queries(Errors):
         {'{}.{}'.format(name, days):1, "_id":0}))
 
         return data
+    
+    def getCurrentUser(self, query, collection):
+        usercollect = collection.find_one(query, 
+                                {'Email':1, 
+                                 "First_name":1, 
+                                 "Last_name":1,
+                                 "_id":0
+                                 })
+        return usercollect
