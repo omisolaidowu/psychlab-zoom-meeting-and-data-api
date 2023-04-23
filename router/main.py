@@ -9,6 +9,7 @@ from models.models import Token
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+from APIs.emailvefication import VerifyEmail
 
 load_dotenv()
 
@@ -21,6 +22,8 @@ writemeeting = WriteSchedule()
 registration = Register()
 
 token = Login()
+
+verifyemail = VerifyEmail()
 
 origins = [
     "http://localhost:5000",
@@ -64,6 +67,9 @@ endpoint = registration.register, methods=["POST"])
 
 router.add_api_route('/api/login', response_model=Token,
 endpoint =token.login_for_access_token , methods=["POST"])
+
+router.add_api_route('/api/verify-email/{user_id}',
+endpoint =verifyemail.verify_email , methods=["PUT"])
 
 app.include_router(router)
 

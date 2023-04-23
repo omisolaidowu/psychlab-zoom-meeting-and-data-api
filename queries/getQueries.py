@@ -25,6 +25,14 @@ class Queries(Errors):
                                 {'Email':1, 
                                  "First_name":1, 
                                  "Last_name":1,
-                                 "_id":0
+                                 "_id":1
+                                 })
+        return usercollect
+    
+    def getCurrUserStatus(self, query, collection):
+        usercollect = collection.find_one(query, 
+                                {'Email':1, 
+                                 "is_verified":1,
+                                 "_id":1
                                  })
         return usercollect

@@ -84,6 +84,30 @@ class Errors:
             "message": "Invalid email or password"
             }
         )
-
+    def inValidEmail(self):
+        return JSONResponse(
+            status_code = 400,
+            content={
+            "status": 0,
+            "message": "Please enter a valid email address"
+            }
+        )
+    def verificationError(self, message):
+        return JSONResponse(
+            status_code = 400,
+            content={
+            "status": 0,
+            "message": message
+            }
+        )
+    
+    def notFoundError(self, message):
+        return JSONResponse(
+            status_code = 404,
+            content={
+            "status": 0,
+            "message": message
+            }
+        )
 
 

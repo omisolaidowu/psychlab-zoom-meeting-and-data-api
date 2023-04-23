@@ -4,12 +4,19 @@ from utils.paswordHash import PasswordActions
 from services.jsonEncode import JSONEncoder
 from services.collectionDB import MakeCollection
 from errors.errorhandler import Errors
+import re
+from services.verificationlink import EmailVerification
+from queries.getQueries import Queries
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 userCollection = MakeCollection()
 
-class Register(PasswordActions, Errors):
+class Register(Queries, EmailVerification, PasswordActions, Errors):
     def __init__(self) -> None:
         self.data = None
+        self.regex = r'{}'.format(os.getenv("EMAIL_VALIDATION_REGEX"))
 
     def register(self, user: User):
         self.data = {
@@ -17,6 +24,9 @@ class Register(PasswordActions, Errors):
             "Last_name": user.last_name,
             "Email": user.email,
             "Password": user.Password,
+            "is_admin":"False",
+            "is_super_admin":"False",
+            "is_verified":"False",
         }
 
         try:
@@ -30,10 +40,21 @@ class Register(PasswordActions, Errors):
             elif len(self.data["Password"])<8:
                 return self.passwordShortError()
             
+            elif not (re.fullmatch(self.regex, Mydata['Email'])):
+                return self.inValidEmail()
             else:
+                
                 Mydata["Password"] = self.get_password_hash(Mydata["Password"])
+                
                 userCollection.insertUser(Mydata)
-                return self.statusOkay(list(Mydata))     
+
+                query = {"Email": Mydata["Email"]}
+                current = self.getCurrentUser(query, userCollection.usercol)
+
+                user_id = str(current["_id"])
+
+                self.sendVerificationLink(Mydata['Email'], user_id)
+                return self.statusOkay({"Message": "Registration successful! Please, verify your email by clicking the link sent to your provided email address"})     
         except:
             return self.serverError()
 

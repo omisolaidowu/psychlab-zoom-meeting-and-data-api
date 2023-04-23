@@ -21,10 +21,4 @@ class MakeCollection:
     def insertMeeting(self, data):  
         return self.therapists.insert_one(data)
     def insertUser(self, data):
-        return self.usercol.insert_one(data)
-    
-            
-        
-        
-    
-        
+        return self.usercol.insert_one(data)   

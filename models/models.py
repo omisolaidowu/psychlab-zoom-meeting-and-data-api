@@ -28,6 +28,7 @@ class User():
     Password:str = Form(...)
     isAdmin: bool = Form(False)
     isSuperAdmin: bool = Form(False)
+    is_verified: bool = Form(False)
     
 @dataclass
 class Token():
