@@ -1,6 +1,6 @@
 # Psycho-Therapy Booking Web Application API
 
-This API is built using Python's Fast API and MongoDB as the database. 
+This API is built using Python's FastAPI and MongoDB as the database. 
 
 ### This API is still under development but it currently handles the following endpoints:
 
