@@ -13,10 +13,10 @@ class VerifyEmail(Queries, userCheck, Errors):
         try:
             query = {"Email": currUser.email}
             user = self.getCurrUserStatus(query, userCollection.usercol)
-            user_id = str(user["_id"])
-            user_id = user_id
             if user is None:
                 return self.notFoundError("User not found...")
+            elif user_id != str(user["_id"]):
+                return self.notFoundError("User not found or invalid verification link...")
             elif user["is_verified"] == "True":
                 return {"message": "Email already verified"}
             else:
