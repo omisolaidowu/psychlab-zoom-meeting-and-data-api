@@ -10,26 +10,19 @@ from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from APIs.emailvefication import VerifyEmail
+import uvicorn
 
 load_dotenv()
 
-import uvicorn
-
 meetingInfo = CreateMeetingInfo()
-
 writemeeting = WriteSchedule()
-
 registration = Register()
-
 token = Login()
-
 verifyemail = VerifyEmail()
 
 origins = [
     "http://localhost:5000",
 ]
-
-
 
 app = FastAPI()
 
@@ -41,12 +34,10 @@ app.add_middleware(
     allow_headers = ["*"],
 )
 
-
 router = APIRouter()
 
 router.add_api_route('/api/get-data', 
 endpoint = writemeeting.getDBDocs, methods=["GET"])
-
 
 router.add_api_route('/api/create-zoomlink', 
 endpoint = meetingInfo.createMeeting, methods=["POST"])
@@ -54,10 +45,8 @@ endpoint = meetingInfo.createMeeting, methods=["POST"])
 router.add_api_route('/api/create-schedule', 
 endpoint = writemeeting.submitSchedule, methods=["POST"])
 
-
 router.add_api_route('/api/remove-selected-time', 
 endpoint = writemeeting.reduceTime, methods=["POST"])
-
 
 router.add_api_route('/api/update-schedule', 
 endpoint = writemeeting.updateSchedules, methods=["PUT"])
