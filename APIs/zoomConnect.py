@@ -9,7 +9,6 @@ from errors.errorhandler import Errors
 from models.models import MeetingDetail
 from services.details import Details
 
-
 class CreateMeetingInfo(Details, Errors):
     def __init__(self) -> None:
         self.client_id = os.getenv("CLIENT_ID")
@@ -23,10 +22,10 @@ class CreateMeetingInfo(Details, Errors):
         self.meetingTime: str
         self.topic: str
         self.access_token: str
+        self.duration: str
 
     
     def create_meeting(self, meet: MeetingDetail):
-
         data = {
         "grant_type": "account_credentials",
         "account_id": self.account_id,
@@ -43,23 +42,27 @@ class CreateMeetingInfo(Details, Errors):
             "Content-Type": "application/json"
         }
         payload = {
-            "topic": "My Zoom Meeting",
+            "topic": meet.topic,
+            "duration": meet.duration,
             'start_time': f'{meet.start_date}T10:{meet.start_time}',
             "type": 2
         }
         response = requests.post(f"{self.api_base_url}/users/me/meetings", headers=headers, json=payload)
         response_data = response.json()
+        return response_data
 
         self.meetingURL = response_data["join_url"]
         self.meetingPassword = response_data["password"]
         self.meetingTime = response_data["start_time"]
         self.topic = response_data["topic"]
+        self.duration = response_data["duration"]
 
         content={
-                    "MeetingURL": self.meetingURL, 
+                    "meeting_url": self.meetingURL, 
                     "password": self.meetingPassword,
                     "meetingTime": self.meetingTime,
-                    "Purpose": self.topic,
+                    "purpose": self.topic,
+                    "duration": self.duration,
                     "message": "Success"
                     }
 

@@ -1,13 +1,13 @@
 from fastapi import Form
-
 from dataclasses import dataclass
-
 from bson import ObjectId
 
 @dataclass
 class MeetingDetail():
     start_date: str = Form(...)
     start_time: str = Form(...)
+    topic: str = Form(...)
+    duration: str = Form(...)
     
 
 @dataclass
