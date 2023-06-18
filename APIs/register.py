@@ -54,10 +54,6 @@ class Register(Queries, EmailVerification, PasswordActions, Errors):
                 user_id = str(current["_id"])
 
                 self.sendVerificationLink(Mydata['Email'], user_id)
-                return self.statusOkay({"Message": "Registration successful! Please, verify your email by clicking the link sent to your provided email address"})     
+                return self.statusOkay({"Message": "Registration successful! Please, verify your email by clicking the link sent to your email address"})     
         except:
             return self.serverError()
-
-
-
-

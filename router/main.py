@@ -1,6 +1,5 @@
 import sys
 sys.path.append(sys.path[0] + "/..")
-
 from APIs.zoomConnect import CreateMeetingInfo
 from APIs.meetingSchedule import WriteSchedule
 from APIs.register import Register
@@ -11,6 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from APIs.emailvefication import VerifyEmail
 import uvicorn
+
 
 load_dotenv()
 
@@ -40,7 +40,7 @@ router.add_api_route('/api/get-data',
 endpoint = writemeeting.getDBDocs, methods=["GET"])
 
 router.add_api_route('/api/create-zoomlink', 
-endpoint = meetingInfo.createMeeting, methods=["POST"])
+endpoint = meetingInfo.create_meeting, methods=["POST"])
 
 router.add_api_route('/api/create-schedule', 
 endpoint = writemeeting.submitSchedule, methods=["POST"])

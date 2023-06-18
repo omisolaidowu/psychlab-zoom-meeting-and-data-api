@@ -8,6 +8,12 @@ from bson import ObjectId
 class MeetingDetail():
     start_date: str = Form(...)
     start_time: str = Form(...)
+    
+
+@dataclass
+class MeetCode():
+    code: str = Form(...)
+
 
 @dataclass
 class MeetingSchedules():
