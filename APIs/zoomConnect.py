@@ -33,7 +33,7 @@ class CreateMeetingInfo(Details, Errors):
     }
         response = requests.post(self.auth_token_url, auth=(self.client_id, self.client_secret), data=data)
         if response.status_code!=200:
-            return self.verificationError()
+            return self.verificationError("Unable to get access token")
         response_data = response.json()
         access_token = response_data["access_token"]
 
@@ -49,7 +49,6 @@ class CreateMeetingInfo(Details, Errors):
         }
         response = requests.post(f"{self.api_base_url}/users/me/meetings", headers=headers, json=payload)
         response_data = response.json()
-        return response_data
 
         self.meetingURL = response_data["join_url"]
         self.meetingPassword = response_data["password"]
