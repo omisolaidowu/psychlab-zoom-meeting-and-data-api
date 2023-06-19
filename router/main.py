@@ -54,7 +54,7 @@ endpoint = writemeeting.updateSchedules, methods=["PUT"])
 router.add_api_route('/api/register', 
 endpoint = registration.register, methods=["POST"])
 
-router.add_api_route('/api/login', response_model=Token,
+router.add_api_route('/api/login',
 endpoint =token.login_for_access_token , methods=["POST"])
 
 router.add_api_route('/api/verify-email/{user_id}',

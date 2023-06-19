@@ -1,5 +1,4 @@
 import requests
-import json
 import sys
 import os
 from dotenv import load_dotenv
@@ -47,8 +46,9 @@ class CreateMeetingInfo(Details, Errors):
             'start_time': f'{meet.start_date}T10:{meet.start_time}',
             "type": 2
         }
-        response = requests.post(f"{self.api_base_url}/users/me/meetings", headers=headers, json=payload)
-        response_data = response.json()
+        resp = requests.post(f"{self.api_base_url}/users/me/meetings", headers=headers, json=payload)
+        
+        response_data = resp.json()
 
         self.meetingURL = response_data["join_url"]
         self.meetingPassword = response_data["password"]

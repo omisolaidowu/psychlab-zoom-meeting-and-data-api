@@ -29,31 +29,31 @@ class Register(Queries, EmailVerification, PasswordActions, Errors):
             "is_verified":"False",
         }
 
-        try:
-            self.InsertedData = JSONEncoder().encode(self.data)
+        # try:
+        self.InsertedData = JSONEncoder().encode(self.data)
 
-            Mydata = eval(self.InsertedData)
+        Mydata = eval(self.InsertedData)
 
-            if userCollection.usercol.count_documents(
-                {'Email': Mydata['Email']}) > 0:
-                return self.userExists()
-            elif len(self.data["Password"])<8:
-                return self.passwordShortError()
+        if userCollection.usercol.count_documents(
+            {'Email': Mydata['Email']}) > 0:
+            return self.userExists()
+        elif len(self.data["Password"])<8:
+            return self.passwordShortError()
+        
+        elif not (re.fullmatch(self.regex, Mydata['Email'])):
+            return self.inValidEmail()
+        else:
             
-            elif not (re.fullmatch(self.regex, Mydata['Email'])):
-                return self.inValidEmail()
-            else:
-                
-                Mydata["Password"] = self.get_password_hash(Mydata["Password"])
-                
-                userCollection.insertUser(Mydata)
+            Mydata["Password"] = self.get_password_hash(Mydata["Password"])
+            
+            userCollection.insertUser(Mydata)
 
-                query = {"Email": Mydata["Email"]}
-                current = self.getCurrentUser(query, userCollection.usercol)
+            query = {"Email": Mydata["Email"]}
+            current = self.getCurrentUser(query, userCollection.usercol)
 
-                user_id = str(current["_id"])
+            user_id = str(current["_id"])
 
-                self.sendVerificationLink(Mydata['Email'], user_id)
-                return self.statusOkay({"Message": "Registration successful! Please, verify your email by clicking the link sent to your email address"})     
-        except:
-            return self.serverError()
+            self.sendVerificationLink(Mydata['Email'], user_id)
+            return self.statusOkay({"Message": "Registration successful! Please, verify your email by clicking the link sent to your email address"})     
+        # except:
+        #     return self.serverError()

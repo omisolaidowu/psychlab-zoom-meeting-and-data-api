@@ -2,6 +2,8 @@ from fastapi import Form
 from dataclasses import dataclass
 from bson import ObjectId
 
+from pydantic import BaseModel
+
 @dataclass
 class MeetingDetail():
     start_date: str = Form(...)
@@ -36,10 +38,14 @@ class User():
     isSuperAdmin: bool = Form(False)
     is_verified: bool = Form(False)
     
-@dataclass
-class Token():
-    access_token: str = Form(...)
-    token_type: str = Form(...)
+# @dataclass
+# class Token():
+#     access_token: str = Form(...)
+#     token_type: str = Form(...)
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
 
 @dataclass
 class LoginUserSchema():
