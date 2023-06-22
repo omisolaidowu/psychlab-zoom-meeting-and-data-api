@@ -35,14 +35,8 @@ class WriteSchedule(Queries, Errors):
             self.data = JSONEncoder().encode(self.data)
 
             Mydata = eval(self.data)
-
-            if mkCollection.therapists.count_documents(
-                {'email': Mydata['email']}
-                ) > 0:
-                return self.therapistExists()
-            else:
-                mkCollection.insertMeeting(Mydata)
-                return self.statusOkay(self.data)
+            mkCollection.insertMeeting(Mydata)
+            return self.statusOkay(self.data)
         except:
             return self.serverError()
     def updateSchedules(self, schedule: MeetingSchedules):

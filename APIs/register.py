@@ -26,11 +26,11 @@ class Register(Queries, EmailVerification, PasswordActions, Errors):
             "Password": user.Password,
             "is_admin":"False",
             "is_super_admin":"False",
+            "is_user":"True",
             "is_verified":"False",
         }
-
-        # try:
         self.InsertedData = JSONEncoder().encode(self.data)
+
 
         Mydata = eval(self.InsertedData)
 
@@ -45,15 +45,17 @@ class Register(Queries, EmailVerification, PasswordActions, Errors):
         else:
             
             Mydata["Password"] = self.get_password_hash(Mydata["Password"])
+
+        if self.data["Email"] == os.getenv("SUPER_ADMIN_EMAIL"):
+            Mydata["is_super_admin"] = "True"
+            Mydata["is_admin"] = "True"
             
-            userCollection.insertUser(Mydata)
+        userCollection.insertUser(Mydata)
 
-            query = {"Email": Mydata["Email"]}
-            current = self.getCurrentUser(query, userCollection.usercol)
+        query = {"Email": Mydata["Email"]}
+        current = self.getCurrentUser(query, userCollection.usercol)
 
-            user_id = str(current["_id"])
+        user_id = str(current["_id"])
 
-            self.sendVerificationLink(Mydata['Email'], user_id)
-            return self.statusOkay({"Message": "Registration successful! Please, verify your email by clicking the link sent to your email address"})     
-        # except:
-        #     return self.serverError()
+        # self.sendVerificationLink(Mydata['Email'], user_id): Pending->Gmail option not good
+        return self.statusOkay({"Message": "Registration successful! Please, verify your email by clicking the link sent to your email address"})     

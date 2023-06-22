@@ -4,11 +4,12 @@ from APIs.zoomConnect import CreateMeetingInfo
 from APIs.meetingSchedule import WriteSchedule
 from APIs.register import Register
 from APIs.login import Login
-from models.models import Token
+from APIs.tokenDelete import DeleteToken
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from APIs.emailvefication import VerifyEmail
+from APIs.loggedUser import GetUserInfo
 import uvicorn
 
 
@@ -17,6 +18,8 @@ load_dotenv()
 meetingInfo = CreateMeetingInfo()
 writemeeting = WriteSchedule()
 registration = Register()
+deletetoken = DeleteToken()
+userinfo = GetUserInfo()
 token = Login()
 verifyemail = VerifyEmail()
 
@@ -57,8 +60,14 @@ endpoint = registration.register, methods=["POST"])
 router.add_api_route('/api/login',
 endpoint =token.login_for_access_token , methods=["POST"])
 
+router.add_api_route('/api/user-info',
+endpoint =userinfo.get_user_info , methods=["POST"])
+
 router.add_api_route('/api/verify-email/{user_id}',
 endpoint =verifyemail.verify_email , methods=["PUT"])
+
+router.add_api_route('/api/delete-token',
+endpoint = deletetoken.delete_token, methods=["PUT"])
 
 app.include_router(router)
 

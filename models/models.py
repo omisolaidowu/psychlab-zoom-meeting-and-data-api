@@ -37,20 +37,23 @@ class User():
     isAdmin: bool = Form(False)
     isSuperAdmin: bool = Form(False)
     is_verified: bool = Form(False)
-    
-# @dataclass
-# class Token():
-#     access_token: str = Form(...)
-#     token_type: str = Form(...)
 
 class Token(BaseModel):
     access_token: str
     token_type: str
+    role: str
+    message: str
+    first_name: str
+    status: str
 
 @dataclass
 class LoginUserSchema():
     email: str = Form(...)
     password: str = Form(...)
+
+@dataclass
+class TokenDelete():
+    token: str = Form(...)
 
 
 
