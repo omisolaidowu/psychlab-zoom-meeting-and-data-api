@@ -10,7 +10,7 @@ collection = MakeCollection()
 class GetUserInfo(Queries, Errors):
     def get_user_info(self, token: TokenDelete):
         query = {"access_token": token.token}
-        current_user = self.getLoggedUser(query, collection.usercol)
+        current_user = self.getCurrentUser(query, collection.usercol)
 
         content = {
             "email": str(current_user["Email"]),

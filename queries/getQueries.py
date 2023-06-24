@@ -28,7 +28,8 @@ class Queries(Errors):
                                  "_id":1,
                                  "is_admin":1,
                                  "is_super_admin":1,
-                                 "is_user":1
+                                 "is_user":1,
+                                 "message":"success"
                                  })
         return usercollect
     
@@ -37,18 +38,5 @@ class Queries(Errors):
                                 {'Email':1, 
                                  "is_verified":1,
                                  "_id":1
-                                 })
-        return usercollect
-    
-    def getLoggedUser(self, query, collection):
-        usercollect = collection.find_one(query, 
-                                {'Email':1, 
-                                 "First_name":1, 
-                                 "Last_name":1,
-                                 "_id":1,
-                                 "is_admin":1,
-                                 "is_super_admin":1,
-                                 "is_user":1,
-                                 "message":"success"
                                  })
         return usercollect
