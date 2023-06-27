@@ -5,6 +5,8 @@ from APIs.meetingSchedule import WriteSchedule
 from APIs.register import Register
 from APIs.login import Login
 from APIs.tokenDelete import DeleteToken
+from APIs.allusers import GetAllUsers
+from APIs.updateadmin import UpdateToAdmin
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
@@ -20,8 +22,10 @@ writemeeting = WriteSchedule()
 registration = Register()
 deletetoken = DeleteToken()
 userinfo = GetUserInfo()
+users = GetAllUsers()
 token = Login()
 verifyemail = VerifyEmail()
+update_user_admin = UpdateToAdmin()
 
 origins = [
     "http://localhost:5000",
@@ -38,6 +42,9 @@ app.add_middleware(
 )
 
 router = APIRouter()
+
+router.add_api_route('/api/all-users', 
+endpoint = users.getusers, methods=["GET"])
 
 router.add_api_route('/api/get-data', 
 endpoint = writemeeting.getDBDocs, methods=["GET"])
@@ -68,6 +75,9 @@ endpoint =verifyemail.verify_email , methods=["PUT"])
 
 router.add_api_route('/api/delete-token',
 endpoint = deletetoken.delete_token, methods=["PUT"])
+
+router.add_api_route('/api/update-to-admin',
+endpoint = update_user_admin.update_to_admin, methods=["PUT"])
 
 app.include_router(router)
 

@@ -55,6 +55,13 @@ class LoginUserSchema():
 class TokenDelete():
     token: str = Form(...)
 
+@dataclass
+class AdminUpdate():
+    is_admin: str = Form(...)
+    email: str = Form(...)
+
+
+
 
 
 

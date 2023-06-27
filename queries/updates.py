@@ -14,3 +14,16 @@ class queryupdates:
         update = {'$unset': {'access_token': 1}}
 
         collection.update_one(query, update)
+
+    def update_user_to_admin(self, query, value, collection):
+        
+        update = {'$set': {'is_admin': value}}
+
+        collection.update_one(query, update)
+
+
+    def update_user_to_superadmin(self, query, value, collection):
+        
+        update = {'$set': {'is_super_admin': value}}
+
+        collection.update_one(query, update)

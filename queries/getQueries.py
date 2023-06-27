@@ -40,3 +40,7 @@ class Queries(Errors):
                                  "_id":1
                                  })
         return usercollect
+    
+    def getallUsers(self):     
+        document = list(mkCollection.usercol.find({}, {'_id': 0}))
+        return self.statusOkay(document)
