@@ -10,6 +10,10 @@ class MeetingDetail():
     start_time: str = Form(...)
     topic: str = Form(...)
     duration: str = Form(...)
+    therapist_name: str = Form(...)
+    therapist_email: str = Form(...)
+    client_name: str = Form(...)
+    client_email: str = Form(...)
     
 
 @dataclass

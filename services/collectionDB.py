@@ -17,8 +17,11 @@ class MakeCollection:
         db = client.therapistDates
         self.therapists = db.therapists
         self.usercol = db.user
+        self.meetings = db.meetings
     
     def insertMeeting(self, data):  
         return self.therapists.insert_one(data)
     def insertUser(self, data):
-        return self.usercol.insert_one(data)   
+        return self.usercol.insert_one(data)
+    def insertuserSchedules(self, data):
+        return self.meetings.insert_one(data)   

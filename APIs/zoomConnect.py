@@ -7,14 +7,22 @@ sys.path.append(sys.path[0] + "/..")
 from errors.errorhandler import Errors
 from models.models import MeetingDetail
 from services.details import Details
+from services.collectionDB import MakeCollection
+from services.jsonEncode import JSONEncoder
+from utils.convertdate import ConvertTime
 
-class CreateMeetingInfo(Details, Errors):
+
+
+
+
+class CreateMeetingInfo(Details, Errors, ConvertTime):
     def __init__(self) -> None:
         self.client_id = os.getenv("CLIENT_ID")
         self.account_id = os.getenv("ACCOUNT_ID")
         self.client_secret = os.getenv("CLIENT_SECRET")
         self.auth_token_url = os.getenv("OAUTH_TOKEN_URL")
         self.api_base_url = os.getenv("API_BASE_URL")
+        self.collection = MakeCollection()
         self.meetingdetails = None
         self.meetingURL: str
         self.meetingPassword: str
@@ -59,10 +67,22 @@ class CreateMeetingInfo(Details, Errors):
         content={
                     "meeting_url": self.meetingURL, 
                     "password": self.meetingPassword,
-                    "meetingTime": self.meetingTime,
+                    "meetingTime": self.convert_date_format(self.meetingTime),
                     "purpose": self.topic,
                     "duration": self.duration,
-                    "message": "Success"
-                    }
+                    "therapist_name": meet.therapist_name,
+                    "therapist_email": meet.therapist_email,
+                    "client_name": meet.client_name,
+                    "client_email": meet.client_email,
+                    "platform": "Zoom",
+                    "message": "Success",
+                    "status":1
+                                    }
+        
+        self.InsertedData = JSONEncoder().encode(content)
+
+        user_meetings = eval(self.InsertedData)
+        
+        self.collection.insertuserSchedules(user_meetings)
 
         return self.statusOkay(content)
