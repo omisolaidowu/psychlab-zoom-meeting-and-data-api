@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "idanalytics-385408",
+  "private_key_id": "26e638e88a778d81cdf563af1b66d444a7c5029f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCk2FCFHcVzPVpm\ncRQhdHAKzEY9hYM6hTlOgwKPpUyAWQGmoK7x6C8Pt6Ldvd27xJ6PSAHODbNXnRFO\nDW+VvAg2Vxtus0GAN70GNOkbOa8F9IgOtMltLNMZOxdwlVr8AdQaejmB+sVwiubU\nbfSUJq4A9M98GDwscaAZ5mce99IeU9RVbp8+ggRyufDJFLc76t4a/Tk72VpfPwKP\nN00keY2o6Sc6PXnAuG0KQK09ixoD+WNjxOjQIb5IJS5YBAoQbiib9Vomuxk0dPid\n/MMYtEmWPRgg9sYzF4nEoeAkkez7XO8VI/zQlIrchRmVk9zh8Oz+bXMwspQ9DQRS\nGK2aiRcDAgMBAAECggEAAwHoo3/B4h1aGzOwRf/61KeaFyCVc/7e5x4gG4DM3taW\nNMpfsWLRYPxdCKX1zVQuqbc1mTh0xNdvwQ3LswlQLmBJIYGRuLDLo7kEEQ7CBl4f\nZq1JCNM1iBNPlSqUaLPxK7PT0sRBepEo2Z1RRgFX/AUmDUHf7yuk28lxU4ZP8LpX\n6jsvN+AMP2S7Qo30nbDaj4Dx11Un8r8JUABoIXmKgvF2yrgbN7DH1VL7FAiqd4/Q\nARFDflvWaG6+7vCYiq2CIV7Uh0no1B1BJI52msv3cfZxYDuJZIYoTZrpBXPdpfkK\ncd/7qp6EzdmciXqaKnJi4ZNx4nS/szuCnAq5bW/WwQKBgQDo+0VgIoXhAIcxouNq\ncd5/0jOXzFVS68AdCevdDIaSjUv7VTiggQGEfNAkBhi7K7iCCru8gbXO6zHuF/dG\nL1RPvm0CTQHUjjYlfre1zCj4JTRvN2WDfnKLDxqy11oQZQwDYtRHvBM/ZXl1A93x\nd/BjpL0bCo+N71iccRWoavFxYQKBgQC1Ia/lB3HxLecZOg7vXy4SagI5P8VFfdjz\nknyVKMqEiCvStzjRlaSY4eiijKUBqOBEuAqxxokswPnz4aiIFcKs7ZlZwIITL4qQ\nN/nv+2sUOOP5oO7DOlfh2wW49tCRwX1LRwYU3vBTTtjjWroQTR9MMgJkKP+p4oj5\n2k2SUaZO4wKBgQCYqDwW98f9XFk5Xt/gWWhPHK6NomeuA6dH375aguCSml7U+kw2\nbxFNfHLth8kgq08kdl/47ozwXg/DUJTHui9maQIIZejzG5PDEbrSNkoJ/mbTENtF\nQ89N6sG1uYHcCDnM5i7uKf/6pETnNXdxxwMOZ105oLvbZp8LMtXcGubFQQKBgD2k\n2Vf40K5kEOJk//A3VFav/VG+gkTEL7G1iPC6kTHJpiBwesXZR8tAFww7EW0fLDQ2\n7mzSRJ0Wj/qQMesefMKdmjMRcTNWWrH6WvVxe1/GfM/YFWob0QzsnWX1mcYBM8MK\nyOcReHjhvK6jke86UAx+eJHd4iTPFA70XLIPV6pBAoGBANig/6Vq1HZ2AdZHYZJ5\nyiSCsJ6O9NSnI/0W6tKEoyV32wAqvn1Kx6PPXSYBqKOlsoZWC+or4q7QEXKD0Xmn\n2SIYfXvd9Ct/nc6aK0DV1shQfcsJXm6ZLDsC751fXWw1x+RxbVo73zxaIoKWNVDM\nWRCxhLUTVB3tSMIb5sSDNeft\n-----END PRIVATE KEY-----\n",
+  "client_email": "megapsychelab@idanalytics-385408.iam.gserviceaccount.com",
+  "client_id": "100470271011480370568",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/megapsychelab%40idanalytics-385408.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

@@ -9,6 +9,7 @@ from services.verificationlink import EmailVerification
 from queries.getQueries import Queries
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 userCollection = MakeCollection()
@@ -57,5 +58,5 @@ class Register(Queries, EmailVerification, PasswordActions, Errors):
 
         user_id = str(current["_id"])
 
-        # self.sendVerificationLink(Mydata['Email'], user_id): Pending->Gmail option not good
+        self.sendVerificationLink(Mydata['Email'], user_id)
         return self.statusOkay({"Message": "Registration successful! Please, verify your email by clicking the link sent to your email address"})     

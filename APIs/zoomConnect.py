@@ -12,9 +12,6 @@ from services.jsonEncode import JSONEncoder
 from utils.convertdate import ConvertTime
 
 
-
-
-
 class CreateMeetingInfo(Details, Errors, ConvertTime):
     def __init__(self) -> None:
         self.client_id = os.getenv("CLIENT_ID")
@@ -52,9 +49,15 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
             "topic": meet.topic,
             "duration": meet.duration,
             'start_time': f'{meet.start_date}T10:{meet.start_time}',
-            "type": 2
+            "type": 2,
+            "settings": {
+            'host_video': 'true',
+            'participant_video': 'true'
         }
-        resp = requests.post(f"{self.api_base_url}/users/me/meetings", headers=headers, json=payload)
+        }
+        resp = requests.post(
+            f"{self.api_base_url}/users/{meet.therapist_email}/meetings", 
+            headers=headers, json=payload)
         
         response_data = resp.json()
 
@@ -64,9 +67,12 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
         self.topic = response_data["topic"]
         self.duration = response_data["duration"]
 
+
         content={
                     "meeting_url": self.meetingURL, 
                     "password": self.meetingPassword,
+                    "meetingID": response_data["id"],
+                    "hostEmail": response_data["host_email"],
                     "meetingTime": self.convert_date_format(self.meetingTime),
                     "purpose": self.topic,
                     "duration": self.duration,
