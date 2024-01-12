@@ -10,7 +10,7 @@ from services.details import Details
 from services.collectionDB import MakeCollection
 from services.jsonEncode import JSONEncoder
 from utils.convertdate import ConvertTime
-
+import datetime
 
 class CreateMeetingInfo(Details, Errors, ConvertTime):
     def __init__(self) -> None:
@@ -27,7 +27,9 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
         self.topic: str
         self.access_token: str
         self.duration: str
-
+        self.meeting_summary: str = 'null'
+        self.updated_at: str = str(datetime.datetime.now())
+        self.state: str = "Upcoming"
     
     def create_meeting(self, meet: MeetingDetail):
         data = {
@@ -82,6 +84,9 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
                     "client_email": meet.client_email,
                     "platform": "Zoom",
                     "message": "Success",
+                    "state": self.state,
+                    "meeting_summary": self.meeting_summary,
+                    "updated_at": self.updated_at,
                     "status":1
                                     }
         

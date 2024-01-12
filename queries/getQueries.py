@@ -2,6 +2,7 @@ import sys
 sys.path.append(sys.path[0] + "/..")
 from services.collectionDB import MakeCollection
 from errors.errorhandler import Errors
+# from models.models import Sess
 
 mkCollection = MakeCollection()
 
@@ -44,3 +45,8 @@ class Queries(Errors):
     def getallUsers(self):     
         document = list(mkCollection.usercol.find({}, {'_id': 0}))
         return self.statusOkay(document)
+    
+    def getCurrentUserMeetings(self, email: str, limit: int):
+        meetings = list(mkCollection.meetings.find({"client_email": email}, {"_id": 0}).sort("updated_at").limit(limit))
+        return meetings
+    

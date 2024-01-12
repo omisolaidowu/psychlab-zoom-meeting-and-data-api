@@ -24,14 +24,16 @@ class Login(Queries, userCheck, Errors, queryupdates):
             access_token_expires = timedelta(minutes=int(os.getenv("EXPIRE_MINUTES")))
             access_token = self.create_access_token(data={"sub": login.email}, expires_delta=access_token_expires)
 
-            
+            meetings = self.getCurrentUserMeetings(login.email, 3)
+
             token = Token(
-                access_token=access_token, 
-                token_type="bearer", 
-                role="user",
-                message="success",
-                first_name=current["First_name"],
-                status=1
+                access_token = access_token, 
+                token_type = "bearer", 
+                role = "user",
+                message = "success",
+                first_name=current['First_name'],   
+                sessions = meetings,
+                status = 1
                             )
 
             if str(current["is_admin"])=="True":

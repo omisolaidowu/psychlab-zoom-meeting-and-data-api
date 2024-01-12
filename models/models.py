@@ -3,7 +3,8 @@ from dataclasses import dataclass
 from bson import ObjectId
 
 from pydantic import BaseModel
-
+from typing import Optional
+# from pydantic import Required
 @dataclass
 class MeetingDetail():
     start_date: str = Form(...)
@@ -20,6 +21,29 @@ class MeetingDetail():
 class MeetCode():
     code: str = Form(...)
 
+@dataclass
+class MeetingStatus:
+    status:str = "Ongoing" or "Completed" or "Upcoming"
+
+@dataclass
+class Sessions:
+    meeting_url: str
+    password: str
+    meetingID: str
+    hostEmail: str
+    meetingTime: str
+    purpose: str
+    duration: int
+    therapist_name: str
+    therapist_email: str
+    client_name: str
+    client_email: str
+    platform: str
+    message: str
+    state: str
+    meeting_summary: str
+    updated_at: str
+    status: int
 
 @dataclass
 class MeetingSchedules():
@@ -30,6 +54,9 @@ class MeetingSchedules():
     days:str = Form(...) 
     scheduleTimes:list = Form(...)
     time: str = Form(None)
+    state: str = Form(MeetingStatus().status)
+    updated_at: str = Form(...)
+    meeting_summary: str = 'null'
 
 @dataclass
 class User():
@@ -49,6 +76,8 @@ class Token(BaseModel):
     message: str
     first_name: str
     status: str
+    email: Optional[str]
+    sessions: Optional[list]
 
 @dataclass
 class LoginUserSchema():
@@ -58,6 +87,11 @@ class LoginUserSchema():
 @dataclass
 class TokenDelete():
     token: str = Form(...)
+
+@dataclass
+class GetAllAppointment():
+    token: str = Form(...)
+    email: str = Form(...)
 
 @dataclass
 class AdminUpdate():

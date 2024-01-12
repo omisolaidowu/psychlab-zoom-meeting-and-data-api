@@ -4,6 +4,7 @@ from APIs.zoomConnect import CreateMeetingInfo
 from APIs.meetingSchedule import WriteSchedule
 from APIs.register import Register
 from APIs.login import Login
+from APIs.appointment import UserAppointments
 from APIs.tokenDelete import DeleteToken
 from APIs.allusers import GetAllUsers
 from APIs.updateadmin import UpdateToAdmin
@@ -18,6 +19,7 @@ import uvicorn
 load_dotenv()
 
 meetingInfo = CreateMeetingInfo()
+appointments = UserAppointments()
 writemeeting = WriteSchedule()
 registration = Register()
 deletetoken = DeleteToken()
@@ -69,6 +71,9 @@ endpoint =token.login_for_access_token , methods=["POST"])
 
 router.add_api_route('/api/user-info',
 endpoint =userinfo.get_user_info , methods=["POST"])
+
+router.add_api_route('/api/user/all-appointment',
+endpoint =appointments.getAll , methods=["POST"])
 
 router.add_api_route('/api/verify-email/{user_id}',
 endpoint =verifyemail.verify_email , methods=["PUT"])
