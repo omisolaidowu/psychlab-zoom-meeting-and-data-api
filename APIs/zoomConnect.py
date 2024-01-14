@@ -28,7 +28,7 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
         self.topic: str
         self.access_token: str
         self.duration: str
-        self.state: None
+        self.state: str
 
     
     def create_meeting(self, meet: MeetingDetail):
@@ -88,6 +88,7 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
                     "client_email": meet.client_email,
                     "platform": "Zoom",
                     "message": "Success",
+                    "state": self.state,
                     "status":1
                                     }
         
