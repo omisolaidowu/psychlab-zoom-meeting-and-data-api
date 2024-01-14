@@ -38,9 +38,9 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
 
         # Get the current date and time
         
-        if self.day_of_month == int(meet.start_date):
+        if self.day_of_month == int(meet.start_date.split('-')[2]):
             self.state = "Today"
-        elif self.day_of_month > int(meet.start_date):
+        elif self.day_of_month > int(meet.start_date.split('-')[2]):
             self.state = "Completed"
 
         data = {
