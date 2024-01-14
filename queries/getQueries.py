@@ -68,7 +68,7 @@ class Queries(Errors):
         First_name = data.get("first_name")
 
         mkCollection.therapists.update_one(query, 
-                                {"$set":{"{}".format(First_name):""}})
+                                {"$set":{"{}".format(First_name):[]}})
 
         # mkCollection.therapists.update_many({},{'$pull':{'{}'.format(First_name):None}})
 

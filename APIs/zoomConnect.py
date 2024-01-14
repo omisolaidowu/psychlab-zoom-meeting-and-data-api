@@ -10,10 +10,17 @@ from services.details import Details
 from services.collectionDB import MakeCollection
 from services.jsonEncode import JSONEncoder
 from utils.convertdate import ConvertTime
-import datetime
+
+from datetime import datetime
+
+
+
+
 
 class CreateMeetingInfo(Details, Errors, ConvertTime):
     def __init__(self) -> None:
+        self.current_date_time = datetime.now()
+        self.day_of_month = self.current_date_time.day
         self.client_id = os.getenv("CLIENT_ID")
         self.account_id = os.getenv("ACCOUNT_ID")
         self.client_secret = os.getenv("CLIENT_SECRET")
@@ -28,10 +35,18 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
         self.access_token: str
         self.duration: str
         self.meeting_summary: str = 'null'
-        self.updated_at: str = str(datetime.datetime.now())
-        self.state: str = "Upcoming"
+        self.updated_at: str = str(self.current_date_time)
+        self.state: str = None
     
     def create_meeting(self, meet: MeetingDetail):
+        if self.day_of_month < meet.start_date:
+            self.state = "Upcoming"
+        elif self.day_of_month == meet.start_date:
+            self.state = "Today"
+        else:
+            self.state = "Completed"
+
+
         data = {
         "grant_type": "account_credentials",
         "account_id": self.account_id,

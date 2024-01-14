@@ -127,21 +127,17 @@ class WriteSchedule(Queries, Errors):
             return self.serverError()
         
     def deleteSchedule(self, therapist: TherapistDays):
-        self.delete_field_by_email(therapist.email)
-            
-        return self.submittedSuccess(self.getTimes())
-        # try:
-
-            
-               
-        # except IndexError as e:
-        #     print(e)
-        #     return self.timeSelectedError()
-        # except ValueError as e:
-        #     print(e)
-        #     return self.timeSelectedError()
-        # except:
-        #     return self.serverError()
+        try:
+            self.delete_field_by_email(therapist.email)
+            return self.submittedSuccess(self.getTimes())       
+        except IndexError as e:
+            print(e)
+            return self.timeSelectedError()
+        except ValueError as e:
+            print(e)
+            return self.timeSelectedError()
+        except:
+            return self.serverError()
         
     def gettherapistDays(self, therapist: TherapistDays):
         try:

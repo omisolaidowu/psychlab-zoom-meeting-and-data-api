@@ -15,6 +15,9 @@ class MeetingDetail():
     therapist_email: str = Form(...)
     client_name: str = Form(...)
     client_email: str = Form(...)
+    # state: str = Form(MeetingStatus().status)
+    # updated_at: str = Form(...)
+    # meeting_summary: str = 'null'
     
 
 @dataclass
@@ -54,9 +57,6 @@ class MeetingSchedules():
     days:str = Form(...) 
     scheduleTimes:list = Form(...)
     time: str = Form(None)
-    # state: str = Form(MeetingStatus().status)
-    # updated_at: str = Form(...)
-    # meeting_summary: str = 'null'
 
 @dataclass
 class User():
@@ -90,7 +90,6 @@ class TokenDelete():
 
 @dataclass
 class GetAllAppointment():
-    token: str = Form(...)
     email: str = Form(...)
 
 @dataclass
