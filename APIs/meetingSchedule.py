@@ -2,7 +2,7 @@ import sys
 
 sys.path.append(sys.path[0] + "/..")
 
-from models.models import MeetingSchedules
+from models.models import MeetingSchedules, TherapistDays
 
 from services.collectionDB import MakeCollection
 
@@ -103,6 +103,8 @@ class WriteSchedule(Queries, Errors):
                     mkCollection.therapists.update_one(query, 
                     {"$pull": {'{}.{}.{}'.format(schedule.first_name, dateIndex, schedule.days): schedule.time}})
                     
+                    # here, date is beign reduced once the length of time array is one:
+                    # we have to remove date once it's passed
                     if (len(filteredTimes)==1):
 
                         mkCollection.therapists.update_one(query, 
@@ -120,6 +122,29 @@ class WriteSchedule(Queries, Errors):
         except ValueError as e:
             print(e)
             return self.timeSelectedError()
+        except:
+            return self.serverError()
+        
+    def deleteSchedule(self, therapist: TherapistDays):
+        self.delete_field_by_email(therapist.email)
+            
+        return self.submittedSuccess(self.getTimes())
+        # try:
+
+            
+               
+        # except IndexError as e:
+        #     print(e)
+        #     return self.timeSelectedError()
+        # except ValueError as e:
+        #     print(e)
+        #     return self.timeSelectedError()
+        # except:
+        #     return self.serverError()
+        
+    def gettherapistDays(self, therapist: TherapistDays):
+        try:
+            return self.queryDays(therapist.email)
         except:
             return self.serverError()
 

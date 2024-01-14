@@ -21,6 +21,18 @@ class Queries(Errors):
         {'{}.{}'.format(name, days):1, "_id":0}))
         return data
     
+    def queryDays(self, emailAddress):
+        query = {"email": emailAddress}
+        data = mkCollection.therapists.find_one(query)
+
+        First_name = data.get("first_name")
+        therapist_meetings = {
+            "Email": data.get("email"),
+            "First name": First_name,
+            "Schedules": data.get(First_name)
+        }
+        return therapist_meetings
+    
     def getCurrentUser(self, query, collection):
         usercollect = collection.find_one(query, 
                                 {'Email':1, 
@@ -49,4 +61,21 @@ class Queries(Errors):
     def getCurrentUserMeetings(self, email: str, limit: int):
         meetings = list(mkCollection.meetings.find({"client_email": email}, {"_id": 0}).sort("updated_at").limit(limit))
         return meetings
+    
+    def delete_field_by_email(self, email):
+        query = {"email": email}
+        data = mkCollection.therapists.find_one(query)
+        First_name = data.get("first_name")
+
+        mkCollection.therapists.update_one(query, 
+                                {"$set":{"{}".format(First_name):""}})
+
+        # mkCollection.therapists.update_many({},{'$pull':{'{}'.format(First_name):None}})
+
+        # update = {"$set": {First_name: ""}}
+
+        
+
+
+
     

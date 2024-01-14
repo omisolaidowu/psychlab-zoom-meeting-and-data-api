@@ -98,6 +98,13 @@ class AdminUpdate():
     is_admin: str = Form(...)
     email: str = Form(...)
 
+@dataclass
+class TherapistDays():
+    email: str = Form(...)
+
+
+
+
 
 
 
