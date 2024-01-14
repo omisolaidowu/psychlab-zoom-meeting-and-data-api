@@ -33,17 +33,17 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
     
     def create_meeting(self, meet: MeetingDetail):
 
-        # Get the current date and time
-        self.current_date_time = datetime.now()
+        # # Get the current date and time
+        # self.current_date_time = datetime.now()
 
-        # Extract and print the day of the month
-        self.day_of_month = self.current_date_time.day
-        if self.day_of_month < int(meet.start_date):
-            self.state = "Upcoming"
-        elif self.day_of_month == int(meet.start_date):
-            self.state = "Today"
-        elif self.day_of_month > int(meet.start_date):
-            self.state = "Completed"
+        # # Extract and print the day of the month
+        # self.day_of_month = self.current_date_time.day
+        # if self.day_of_month < int(meet.start_date):
+        #     self.state = "Upcoming"
+        # elif self.day_of_month == int(meet.start_date):
+        #     self.state = "Today"
+        # elif self.day_of_month > int(meet.start_date):
+        #     self.state = "Completed"
 
         data = {
         "grant_type": "account_credentials",
@@ -69,6 +69,8 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
         resp = requests.post(f"{self.api_base_url}/users/me/meetings", headers=headers, json=payload)
         
         response_data = resp.json()
+
+        print(self.day_of_month)
 
         self.meetingURL = response_data["join_url"]
         self.meetingPassword = response_data["password"]
