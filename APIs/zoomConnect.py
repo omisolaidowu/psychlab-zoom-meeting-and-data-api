@@ -10,9 +10,7 @@ from services.details import Details
 from services.collectionDB import MakeCollection
 from services.jsonEncode import JSONEncoder
 from utils.convertdate import ConvertTime
-
-
-
+from datetime import datetime
 
 
 class CreateMeetingInfo(Details, Errors, ConvertTime):
@@ -34,6 +32,12 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
 
     
     def create_meeting(self, meet: MeetingDetail):
+
+        # Get the current date and time
+        self.current_date_time = datetime.now()
+
+        # Extract and print the day of the month
+        self.day_of_month = self.current_date_time.day
         if self.day_of_month < meet.start_date:
             self.state = "Upcoming"
         elif self.day_of_month == meet.start_date:
