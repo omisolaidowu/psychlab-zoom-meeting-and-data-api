@@ -11,16 +11,12 @@ from services.collectionDB import MakeCollection
 from services.jsonEncode import JSONEncoder
 from utils.convertdate import ConvertTime
 
-from datetime import datetime
-
 
 
 
 
 class CreateMeetingInfo(Details, Errors, ConvertTime):
     def __init__(self) -> None:
-        self.current_date_time = datetime.now()
-        self.day_of_month = self.current_date_time.day
         self.client_id = os.getenv("CLIENT_ID")
         self.account_id = os.getenv("ACCOUNT_ID")
         self.client_secret = os.getenv("CLIENT_SECRET")
@@ -34,9 +30,8 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
         self.topic: str
         self.access_token: str
         self.duration: str
-        self.meeting_summary: str = 'null'
-        self.updated_at: str = str(self.current_date_time)
-        self.state: str = None
+        self.state: None
+
     
     def create_meeting(self, meet: MeetingDetail):
         if self.day_of_month < meet.start_date:
@@ -45,7 +40,6 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
             self.state = "Today"
         else:
             self.state = "Completed"
-
 
         data = {
         "grant_type": "account_credentials",
@@ -66,15 +60,9 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
             "topic": meet.topic,
             "duration": meet.duration,
             'start_time': f'{meet.start_date}T10:{meet.start_time}',
-            "type": 2,
-            "settings": {
-            'host_video': 'true',
-            'participant_video': 'true'
+            "type": 2
         }
-        }
-        resp = requests.post(
-            f"{self.api_base_url}/users/{meet.therapist_email}/meetings", 
-            headers=headers, json=payload)
+        resp = requests.post(f"{self.api_base_url}/users/me/meetings", headers=headers, json=payload)
         
         response_data = resp.json()
 
@@ -84,12 +72,9 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
         self.topic = response_data["topic"]
         self.duration = response_data["duration"]
 
-
         content={
                     "meeting_url": self.meetingURL, 
                     "password": self.meetingPassword,
-                    "meetingID": response_data["id"],
-                    "hostEmail": response_data["host_email"],
                     "meetingTime": self.convert_date_format(self.meetingTime),
                     "purpose": self.topic,
                     "duration": self.duration,
@@ -100,8 +85,6 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
                     "platform": "Zoom",
                     "message": "Success",
                     "state": self.state,
-                    "meeting_summary": self.meeting_summary,
-                    "updated_at": self.updated_at,
                     "status":1
                                     }
         
