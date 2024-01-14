@@ -39,6 +39,7 @@ class WriteSchedule(Queries, Errors):
             return self.statusOkay(self.data)
         except:
             return self.serverError()
+        
     def updateSchedules(self, schedule: MeetingSchedules):
         new_data = {schedule.first_name: {schedule.days:schedule.scheduleTimes}}
 
