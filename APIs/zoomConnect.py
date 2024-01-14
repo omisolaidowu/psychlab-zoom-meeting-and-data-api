@@ -88,7 +88,6 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
                     "client_email": meet.client_email,
                     "platform": "Zoom",
                     "message": "Success",
-                    "state": self.state,
                     "status":1
                                     }
         
