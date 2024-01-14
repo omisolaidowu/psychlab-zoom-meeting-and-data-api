@@ -38,9 +38,9 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
 
         # Extract and print the day of the month
         self.day_of_month = self.current_date_time.day
-        if self.day_of_month < meet.start_date:
+        if self.day_of_month < int(meet.start_date):
             self.state = "Upcoming"
-        elif self.day_of_month == meet.start_date:
+        elif self.day_of_month == int(meet.start_date):
             self.state = "Today"
         else:
             self.state = "Completed"
@@ -70,8 +70,6 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
         
         response_data = resp.json()
 
-        print(response_data)
-
         self.meetingURL = response_data["join_url"]
         self.meetingPassword = response_data["password"]
         self.meetingTime = response_data["start_time"]
@@ -90,6 +88,7 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
                     "client_email": meet.client_email,
                     "platform": "Zoom",
                     "message": "Success",
+                    "state": self.state,
                     "status":1
                                     }
         
