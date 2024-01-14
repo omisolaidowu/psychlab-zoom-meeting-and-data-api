@@ -42,7 +42,7 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
             self.state = "Upcoming"
         elif self.day_of_month == int(meet.start_date):
             self.state = "Today"
-        else:
+        elif self.day_of_month > int(meet.start_date):
             self.state = "Completed"
 
         data = {
