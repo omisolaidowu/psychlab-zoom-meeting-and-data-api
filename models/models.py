@@ -54,9 +54,9 @@ class MeetingSchedules():
     days:str = Form(...) 
     scheduleTimes:list = Form(...)
     time: str = Form(None)
-    state: str = Form(MeetingStatus().status)
-    updated_at: str = Form(...)
-    meeting_summary: str = 'null'
+    # state: str = Form(MeetingStatus().status)
+    # updated_at: str = Form(...)
+    # meeting_summary: str = 'null'
 
 @dataclass
 class User():
