@@ -70,6 +70,8 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
         
         response_data = resp.json()
 
+        print(response_data)
+
         self.meetingURL = response_data["join_url"]
         self.meetingPassword = response_data["password"]
         self.meetingTime = response_data["start_time"]

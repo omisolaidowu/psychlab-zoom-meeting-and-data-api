@@ -24,29 +24,6 @@ class MeetingDetail():
 class MeetCode():
     code: str = Form(...)
 
-@dataclass
-class MeetingStatus:
-    status:str = "Ongoing" or "Completed" or "Upcoming"
-
-@dataclass
-class Sessions:
-    meeting_url: str
-    password: str
-    meetingID: str
-    hostEmail: str
-    meetingTime: str
-    purpose: str
-    duration: int
-    therapist_name: str
-    therapist_email: str
-    client_name: str
-    client_email: str
-    platform: str
-    message: str
-    state: str
-    meeting_summary: str
-    updated_at: str
-    status: int
 
 @dataclass
 class MeetingSchedules():
