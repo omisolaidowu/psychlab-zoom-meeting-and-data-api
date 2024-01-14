@@ -28,7 +28,7 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
         self.topic: str
         self.access_token: str
         self.duration: str
-        self.state: str
+        self.state = "Upcoming"
 
     
     def create_meeting(self, meet: MeetingDetail):
