@@ -36,13 +36,6 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
     
     def create_meeting(self, meet: MeetingDetail):
 
-        # Get the current date and time
-        
-        if self.day_of_month == int(meet.start_date.split('-')[2]):
-            self.state = "Today"
-        elif self.day_of_month > int(meet.start_date.split('-')[2]):
-            self.state = "Completed"
-
         data = {
         "grant_type": "account_credentials",
         "account_id": self.account_id,
@@ -77,7 +70,8 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
         content={
                     "meeting_url": self.meetingURL, 
                     "password": self.meetingPassword,
-                    "meetingTime": self.convert_date_format(self.meetingTime),
+                    "meetingDate": self.convert_date_format(self.meetingTime),
+                    "time": meet.start_time,
                     "purpose": self.topic,
                     "duration": self.duration,
                     "therapist_name": meet.therapist_name,
@@ -87,6 +81,7 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
                     "platform": "Zoom",
                     "message": "Success",
                     "state": self.state,
+                    "updated_at": self.current_date_time,
                     "status":1
                                     }
         
