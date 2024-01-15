@@ -70,7 +70,7 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
         content={
                     "meeting_url": self.meetingURL, 
                     "password": self.meetingPassword,
-                    "meetingDate": self.convert_date_format(self.meetingTime),
+                    "meetingTime": self.convert_date_format(self.meetingTime),
                     "time": meet.start_time,
                     "purpose": self.topic,
                     "duration": self.duration,
