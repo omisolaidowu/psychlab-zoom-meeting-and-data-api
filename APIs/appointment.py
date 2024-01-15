@@ -18,7 +18,7 @@ class UserAppointments(Queries):
         current_date_time = datetime.now()
         # Extract and print the day of the month
         day_of_month = current_date_time.day
-        time_of_day = current_date_time.time()
+        
 
         all_appointments  = self.getCurrentUserMeetings(details.email, 15)
         for  appointment in all_appointments:
@@ -29,7 +29,7 @@ class UserAppointments(Queries):
 
             if day_of_month == meeting_day:
                 appointment["state"] = "Today"
-            elif day_of_month > meeting_day:
+            elif day_of_month > meeting_day :
                 appointment["state"] = "Completed"
 
         return all_appointments
