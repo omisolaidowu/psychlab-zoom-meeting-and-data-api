@@ -81,7 +81,7 @@ class CreateMeetingInfo(Details, Errors, ConvertTime):
                     "platform": "Zoom",
                     "message": "Success",
                     "state": self.state,
-                    "updated_at": self.current_date_time,
+                    "updated_at": str(self.current_date_time),
                     "status":1
                                     }
         
