@@ -18,7 +18,6 @@ class UserAppointments(Queries):
         current_date_time = datetime.now()
         # Extract and print the day of the month
         day_of_month = current_date_time.day
-        
 
         all_appointments  = self.getCurrentUserMeetings(details.email, 15)
         for  appointment in all_appointments:
