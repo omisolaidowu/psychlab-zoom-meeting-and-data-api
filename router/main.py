@@ -57,6 +57,9 @@ endpoint = meetingInfo.create_meeting, methods=["POST"])
 router.add_api_route('/api/create-schedule', 
 endpoint = writemeeting.submitSchedule, methods=["POST"])
 
+router.add_api_route('/api/create-bio', 
+endpoint = writemeeting.submitTherapistBio, methods=["POST"])
+
 router.add_api_route('/api/remove-selected-time', 
 endpoint = writemeeting.reduceTime, methods=["POST"])
 

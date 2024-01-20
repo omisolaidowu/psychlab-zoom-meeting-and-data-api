@@ -55,7 +55,8 @@ class Queries(Errors):
         return usercollect
     
     def getallUsers(self):     
-        document = list(mkCollection.usercol.find({}, {'_id': 0}))
+        document = list(mkCollection.usercol.find({}, {'_id': 0, 'Password':0}))
+        
         return self.statusOkay(document)
     
     def getCurrentUserMeetings(self, email: str, limit: int):

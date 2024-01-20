@@ -31,8 +31,12 @@ class MeetingSchedules():
     first_name:str = Form(...)
     last_name:str = Form(...)
     email:str = Form(...)
-    days:str = Form(...) 
-    scheduleTimes:list = Form(...)
+    bio: str = Form(...)
+    certification: str = Form(...)
+    experience: str = Form(...)
+    image_path: str = Form(...)
+    days:str = Form(None) 
+    scheduleTimes:list = Form(None)
     time: str = Form(None)
 
 @dataclass
@@ -77,6 +81,9 @@ class AdminUpdate():
 @dataclass
 class TherapistDays():
     email: str = Form(...)
+
+
+
 
 
 

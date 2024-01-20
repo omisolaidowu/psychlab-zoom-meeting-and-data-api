@@ -21,14 +21,17 @@ class WriteSchedule(Queries, Errors):
     def __init__(self) -> None:
         self.data = None
         self.isDay = True
-
-    def submitSchedule(self, schedule: MeetingSchedules):
+    
+    def submitTherapistBio(self, schedule: MeetingSchedules):
         self.data = {
+            "user_id": ObjectId(),
             "first_name": schedule.first_name,
             "last_name": schedule.last_name,
-            "email":schedule.email,
-            "user_id": ObjectId(),
-            schedule.first_name:[{schedule.days:schedule.scheduleTimes}]
+            "email": schedule.email,
+            "bio": schedule.bio,
+            "certification": schedule.certification,
+            "experience": schedule.experience,
+            "image_path": schedule.image_path
         }
         try:
 
@@ -36,6 +39,16 @@ class WriteSchedule(Queries, Errors):
 
             Mydata = eval(self.data)
             mkCollection.insertMeeting(Mydata)
+            return self.statusOkay(self.data)
+        except:
+            return self.serverError()
+
+
+    def submitSchedule(self, schedule: MeetingSchedules):
+        filter = {"email": schedule.email}
+        self.data = {"$set": {schedule.first_name:[{schedule.days:schedule.scheduleTimes}]}}
+        try:
+            mkCollection.therapists.update_one(filter, self.data)
             return self.statusOkay(self.data)
         except:
             return self.serverError()
