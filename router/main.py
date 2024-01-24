@@ -63,9 +63,6 @@ endpoint = writemeeting.submitTherapistBio, methods=["POST"])
 router.add_api_route('/api/remove-selected-time', 
 endpoint = writemeeting.reduceTime, methods=["POST"])
 
-router.add_api_route('/api/update-schedule', 
-endpoint = writemeeting.updateSchedules, methods=["PUT"])
-
 router.add_api_route('/api/delete-schedule', 
 endpoint = writemeeting.deleteSchedule, methods=["POST"]) # new for deleting the days
 

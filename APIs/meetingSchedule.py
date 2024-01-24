@@ -34,6 +34,11 @@ class WriteSchedule(Queries, Errors):
             "image_path": schedule.image_path
         }
         try:
+            documents = self.getTimes()
+
+            for doc in documents:
+                if self.data['email'] in doc['email']:
+                    return self.therapistExists()
 
             self.data = JSONEncoder().encode(self.data)
 
@@ -42,60 +47,72 @@ class WriteSchedule(Queries, Errors):
             return self.statusOkay(self.data)
         except:
             return self.serverError()
+        
+    def checkKeys(self):
+        documents = self.getTimes()
+
+        data_keys = [list(doc.keys()) for doc in documents]
+        for doc in documents:
+            therapist_first_name = doc['first_name']
+            if not any(therapist_first_name in sublist for sublist in data_keys):
+                return True
+            else:
+                return False
 
 
     def submitSchedule(self, schedule: MeetingSchedules):
         filter = {"email": schedule.email}
         self.data = {"$set": {schedule.first_name:[{schedule.days:schedule.scheduleTimes}]}}
-        try:
-            mkCollection.therapists.update_one(filter, self.data)
-            return self.statusOkay(self.data)
-        except:
-            return self.serverError()
-        
-    def updateSchedules(self, schedule: MeetingSchedules):
-        new_data = {schedule.first_name: {schedule.days:schedule.scheduleTimes}}
 
-        documents = self.getTimes()
-        try:
-
-            dayData = self.queryTargetDay(schedule.email, schedule.first_name, schedule.days)
-
-            dates = dayData[0][schedule.first_name]
-
-            filter = [(list(i.keys())) for i in dates]
-            self.isDay=True
-        except KeyError as e:
-            self.isDay = False
-            print(e)
-        first_names = [i["first_name"] for i in documents]
-        last_names = [i["last_name"] for i in documents]
-        selectedDay = [x for l in filter for x in l]
-
-        if schedule.days in selectedDay:
-            return self.dayExists()
-        elif (
-            schedule.first_name not in first_names
-            or
-            schedule.last_name not in last_names
-            ):
-            return self.noDataError()
-        elif len(documents)<1:
-            return self.noDataError()
-        else:
+        if self.checkKeys() == True:
             try:
-                query = {"email": schedule.email}
-                mkCollection.therapists.update_one(
-                                query, 
-                                {'$push': new_data}, 
-                                upsert = True
-                                )
-                responsedata = mkCollection.therapists.find({}, {'_id': 0})
+                mkCollection.therapists.update_one(filter, self.data)
+                return self.statusOkay(self.data)
+            except:
+                return self.serverError()
+        else:
+            new_data = {schedule.first_name: {schedule.days:schedule.scheduleTimes}}
 
-                return self.statusOkay(list(responsedata))
+            documents = self.getTimes()
+            try:
+
+                dayData = self.queryTargetDay(schedule.email, schedule.first_name, schedule.days)
+
+                dates = dayData[0][schedule.first_name]
+
+                filter = [(list(i.keys())) for i in dates]
+                self.isDay=True
             except KeyError as e:
-                return self.serverError
-            
+                self.isDay = False
+                print(e)
+            first_names = [i["first_name"] for i in documents]
+            last_names = [i["last_name"] for i in documents]
+            selectedDay = [x for l in filter for x in l]
+
+            if schedule.days in selectedDay:
+                return self.dayExists()
+            elif (
+                schedule.first_name not in first_names
+                or
+                schedule.last_name not in last_names
+                ):
+                return self.noDataError()
+            elif len(documents)<1:
+                return self.noDataError()
+            else:
+                try:
+                    query = {"email": schedule.email}
+                    mkCollection.therapists.update_one(
+                                    query, 
+                                    {'$push': new_data}, 
+                                    upsert = True
+                                    )
+                    responsedata = mkCollection.therapists.find({}, {'_id': 0})
+
+                    return self.statusOkay(list(responsedata))
+                except KeyError as e:
+                    return self.serverError
+                
     def reduceTime(self, schedule: MeetingSchedules):
         query = {"email": schedule.email}
         try:
