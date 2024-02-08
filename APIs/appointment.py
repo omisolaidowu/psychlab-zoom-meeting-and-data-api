@@ -17,18 +17,27 @@ class UserAppointments(Queries):
     def getAll(self, details: GetAllAppointment):
         current_date_time = datetime.now()
         # Extract and print the day of the month
-        day_of_month = current_date_time.day
+        current_day = current_date_time.day
+
+        current_month = current_date_time.month
 
         all_appointments  = self.getCurrentUserMeetings(details.email, 15)
-        for  appointment in all_appointments:
+        for appointment in all_appointments:
             start_date = appointment["meetingTime"]
-            day_part = start_date.split(",")[1].split(" ")[1]
+            # Parse the meeting date string to datetime object
+            meeting_date = datetime.strptime(start_date, "%a, %d %b, %Y")
+            # Extract the month and day components from the meeting date
+            meeting_month = meeting_date.month
+            meeting_day = meeting_date.day
 
-            meeting_day = int(day_part)
-
-            if day_of_month == meeting_day:
+            if current_month == meeting_month and current_day == meeting_day:
+                # The appointment is scheduled for today
                 appointment["state"] = "Today"
-            elif day_of_month > meeting_day :
+            elif current_month == meeting_month and current_day > meeting_day:
+                # The appointment has already occurred
+                appointment["state"] = "Completed"
+            elif current_month > meeting_month:
+                # The appointment was in a previous month
                 appointment["state"] = "Completed"
 
         return all_appointments
@@ -36,18 +45,27 @@ class UserAppointments(Queries):
     def getAllTherapist(self, details: GetAllAppointment):
         current_date_time = datetime.now()
         # Extract and print the day of the month
-        day_of_month = current_date_time.day
+        current_day = current_date_time.day
+
+        current_month = current_date_time.month
 
         all_appointments  = self.getCurrentTherapistMeetings(details.email, 15)
-        for  appointment in all_appointments:
+        for appointment in all_appointments:
             start_date = appointment["meetingTime"]
-            day_part = start_date.split(",")[1].split(" ")[1]
+            # Parse the meeting date string to datetime object
+            meeting_date = datetime.strptime(start_date, "%a, %d %b, %Y")
+            # Extract the month and day components from the meeting date
+            meeting_month = meeting_date.month
+            meeting_day = meeting_date.day
 
-            meeting_day = int(day_part)
-
-            if day_of_month == meeting_day:
+            if current_month == meeting_month and current_day == meeting_day:
+                # The appointment is scheduled for today
                 appointment["state"] = "Today"
-            elif day_of_month > meeting_day :
+            elif current_month == meeting_month and current_day > meeting_day:
+                # The appointment has already occurred
+                appointment["state"] = "Completed"
+            elif current_month > meeting_month:
+                # The appointment was in a previous month
                 appointment["state"] = "Completed"
 
         return all_appointments
