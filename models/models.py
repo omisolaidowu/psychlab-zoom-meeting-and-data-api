@@ -81,15 +81,3 @@ class AdminUpdate():
 @dataclass
 class TherapistDays():
     email: str = Form(...)
-
-
-
-
-
-
-
-
-
-
-
-

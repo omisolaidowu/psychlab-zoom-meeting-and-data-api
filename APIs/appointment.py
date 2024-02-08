@@ -32,3 +32,22 @@ class UserAppointments(Queries):
                 appointment["state"] = "Completed"
 
         return all_appointments
+    
+    def getAllTherapist(self, details: GetAllAppointment):
+        current_date_time = datetime.now()
+        # Extract and print the day of the month
+        day_of_month = current_date_time.day
+
+        all_appointments  = self.getCurrentTherapistMeetings(details.email, 15)
+        for  appointment in all_appointments:
+            start_date = appointment["meetingTime"]
+            day_part = start_date.split(",")[1].split(" ")[1]
+
+            meeting_day = int(day_part)
+
+            if day_of_month == meeting_day:
+                appointment["state"] = "Today"
+            elif day_of_month > meeting_day :
+                appointment["state"] = "Completed"
+
+        return all_appointments

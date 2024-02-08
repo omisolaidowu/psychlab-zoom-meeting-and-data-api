@@ -63,6 +63,10 @@ class Queries(Errors):
         meetings = list(mkCollection.meetings.find({"client_email": email}, {"_id": 0}).sort("updated_at").limit(limit))
         return meetings
     
+    def getCurrentTherapistMeetings(self, email: str, limit: int):
+        meetings = list(mkCollection.meetings.find({"therapist_email": email}, {"_id": 0}).sort("updated_at").limit(limit))
+        return meetings
+    
     def delete_field_by_email(self, email):
         query = {"email": email}
         data = mkCollection.therapists.find_one(query)

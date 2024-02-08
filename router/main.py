@@ -81,6 +81,9 @@ endpoint =userinfo.get_user_info , methods=["POST"])
 router.add_api_route('/api/user/all-appointment',
 endpoint =appointments.getAll , methods=["POST"])
 
+router.add_api_route('/api/therapist/all-appointment',
+endpoint =appointments.getAllTherapist, methods=["POST"]) #added
+
 router.add_api_route('/api/verify-email/{user_id}',
 endpoint =verifyemail.verify_email , methods=["PUT"])
 
