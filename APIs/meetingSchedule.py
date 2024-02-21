@@ -63,10 +63,10 @@ class WriteSchedule(Queries, Errors):
         documents = self.getTimes()
         for doc in documents:
             if doc["email"] == None:
-                print("Not there")
+                print(doc["email"])
                 return True
             else:
-                print("There")
+                print(doc["email"])
                 return False
 
 
