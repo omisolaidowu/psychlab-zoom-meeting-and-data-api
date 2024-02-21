@@ -62,7 +62,7 @@ class WriteSchedule(Queries, Errors):
     def emailNotPresent(self):
         documents = self.getTimes()
         for doc in documents:
-            if doc["email"] != None or doc["email"]:
+            if (doc["email"] != None) or (not doc["email"]):
                 return True
             else:
                 return False
