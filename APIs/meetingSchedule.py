@@ -62,16 +62,15 @@ class WriteSchedule(Queries, Errors):
     def emailNotPresent(self):
         documents = self.getTimes()
         for doc in documents:
-            if doc["email"] == None:
-                print(doc["email"])
-                return True
-            else:
+            if "email" in doc and doc["email"] != "":
                 print(doc["email"])
                 return False
+        return True
+
 
 
     def submitSchedule(self, schedule: MeetingSchedules):
-        if self.emailNotPresent() == True:
+        if self.emailNotPresent():
             return self.emailNotThereError()
 
         filter = {"email": schedule.email}
