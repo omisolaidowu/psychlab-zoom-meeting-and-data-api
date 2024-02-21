@@ -63,11 +63,8 @@ class WriteSchedule(Queries, Errors):
         documents = self.getTimes()
         for doc in documents:
             if "email" in doc and doc["email"] != "":
-                print(doc["email"])
                 return False
         return True
-
-
 
     def submitSchedule(self, schedule: MeetingSchedules):
         if self.emailNotPresent():
@@ -97,6 +94,9 @@ class WriteSchedule(Queries, Errors):
             except KeyError as e:
                 self.isDay = False
                 print(e)
+            except IndexError:
+                return self.emailNotThereError()
+            
             first_names = [i["first_name"] for i in documents]
             last_names = [i["last_name"] for i in documents]
             selectedDay = [x for l in filter for x in l]
