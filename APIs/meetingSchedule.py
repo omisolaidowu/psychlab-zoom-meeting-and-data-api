@@ -58,9 +58,20 @@ class WriteSchedule(Queries, Errors):
                 return True
             else:
                 return False
+            
+    def emailNotPresent(self):
+        documents = self.getTimes()
+        for doc in documents:
+            if doc["email"] != None or doc["email"]:
+                return True
+            else:
+                return False
 
 
     def submitSchedule(self, schedule: MeetingSchedules):
+        if self.emailNotPresent() == True:
+            return self.emailNotThereError()
+
         filter = {"email": schedule.email}
         self.data = {"$set": {schedule.first_name:[{schedule.days:schedule.scheduleTimes}]}}
 

@@ -109,5 +109,14 @@ class Errors:
             "message": message
             }
         )
+    
+    def emailNotThereError(self):
+        return JSONResponse(
+            status_code = 400,
+            content={
+            "status": 0,
+            "message": "Please submit your bio first. Thanks!"
+            }
+        )
 
 
